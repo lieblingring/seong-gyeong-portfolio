@@ -4,12 +4,33 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Seong Gyeong — 관리자</title>
+  <style>
+    /* 관리자 화면 상단 브랜딩 배너 (Decap CMS 앱 바깥의 순수 HTML 영역) */
+    #brand-banner{
+      background:#0a0a0a;
+      color:#fafafa;
+      padding:16px 24px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      border-bottom:3px solid #fafafa;
+    }
+    #brand-banner .wordmark{ font-weight:800; letter-spacing:.08em; font-size:14px; }
+    #brand-banner a{ color:#fafafa; font-size:12px; text-decoration:underline; }
+  </style>
 </head>
 <body>
+  <div id="brand-banner">
+    <span class="wordmark">SEONG GYEONG · 관리자</span>
+    <a href="/" target="_blank" rel="noopener">← 실제 사이트 보기</a>
+  </div>
+
   <!-- Netlify Identity: 실제 로그인 인증을 처리합니다 -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <!-- Decap CMS: 등록/수정/삭제 화면 자체를 만들어주는 오픈소스 도구 -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
   <script>
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", (user) => {
@@ -20,6 +41,54 @@
         }
       });
     }
+
+    // ===== 오른쪽 실시간 미리보기: 실제 사이트 상세뷰어와 비슷한 느낌으로 표시 =====
+    var PortfolioPreview = createClass({
+      render: function () {
+        var entry = this.props.entry;
+        var title = entry.getIn(["data", "title"]) || "제목 없음";
+        var category = entry.getIn(["data", "category"]) || "";
+        var thumbnail = entry.getIn(["data", "thumbnail"]);
+        var images = entry.getIn(["data", "images"]);
+
+        var thumbUrl = thumbnail ? this.props.getAsset(thumbnail).toString() : null;
+
+        var detailImgs = [];
+        if (images) {
+          images.forEach(function (img) {
+            var src = img.get("src");
+            if (src) detailImgs.push(src);
+          });
+        }
+
+        return h(
+          "div",
+          { style: { background: "#0a0a0a", minHeight: "100vh", padding: "32px 20px", fontFamily: "Inter, -apple-system, sans-serif" } },
+          h("div", { style: { color: "#fafafa", fontSize: "11px", letterSpacing: "0.08em", fontFamily: "monospace", marginBottom: "8px", opacity: 0.6 } }, category || "미분류"),
+          h("h1", { style: { color: "#fafafa", fontSize: "20px", fontWeight: 700, marginBottom: "24px" } }, title),
+          thumbUrl
+            ? h("div", { style: { marginBottom: "28px" } },
+                h("div", { style: { color: "#fafafa", opacity: 0.5, fontSize: "11px", marginBottom: "8px" } }, "썸네일"),
+                h("img", { src: thumbUrl, style: { width: "260px", height: "260px", objectFit: "cover", borderRadius: "6px", display: "block" } })
+              )
+            : null,
+          h("div", { style: { color: "#fafafa", opacity: 0.5, fontSize: "11px", marginBottom: "8px" } }, "상세페이지 (" + detailImgs.length + "장)"),
+          h(
+            "div",
+            { style: { display: "flex", flexDirection: "column", alignItems: "center", maxWidth: "560px" } },
+            detailImgs.map(function (src, i) {
+              return h("img", {
+                key: i,
+                src: this.props.getAsset(src).toString(),
+                style: { width: "100%", display: "block" },
+              });
+            }, this)
+          )
+        );
+      },
+    });
+
+    CMS.registerPreviewTemplate("works", PortfolioPreview);
   </script>
 </body>
 </html>
