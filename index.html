@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seong Gyeong — Portfolio</title>
+<meta name="description" content="Seong Gyeong의 UI/UX 디자인 상세페이지 아카이브">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#/" class="wordmark">SEONG GYEONG</a>
+    <nav class="site-nav">
+      <span class="count-tag" id="itemCount">000 WORKS</span>
+      <a class="btn-admin-toggle" href="/admin/" target="_blank" rel="noopener">관리자 페이지</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== CATEGORY MENU ===== -->
+<nav class="category-menu">
+  <div class="menu-inner" id="categoryMenu"></div>
+</nav>
+
+<!-- ===== HOME / GRID ===== -->
+<main id="homeView" class="home-view">
+  <div class="intro-row">
+    <p class="intro-text">모바일 UI/UX 상세페이지를 모은 아카이브.<br>썸네일을 클릭하면 드래그로 전체 화면을 살펴볼 수 있습니다.</p>
+  </div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<!-- ===== DETAIL / DRAG VIEWER ===== -->
+<section id="detailView" class="detail-view" aria-hidden="true">
+  <div class="detail-topbar">
+    <span class="detail-index" id="detailIndex">000</span>
+    <span class="detail-title" id="detailTitle">TITLE</span>
+    <button class="detail-close" id="detailClose" aria-label="닫기">CLOSE ✕</button>
+  </div>
+  <div class="detail-viewport" id="detailViewport">
+    <div class="detail-canvas" id="detailCanvas"></div>
+  </div>
+  <div class="detail-hint" id="detailHint">드래그하여 살펴보기</div>
+</section>
+
+<script src="data.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

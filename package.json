@@ -1,0 +1,11 @@
+{
+  "name": "seong-gyeong-portfolio",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "node build-data.js"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3"
+  }
+}

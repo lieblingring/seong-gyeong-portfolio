@@ -1,0 +1,42 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# 로그인 없이도 콘텐츠 자체는 공개적으로 보이지만,
+# "등록/수정/삭제"는 git-gateway(Netlify Identity)로 로그인한 사람만 가능합니다.
+publish_mode: simple
+
+media_folder: "images/uploads"   # 업로드한 이미지가 실제로 저장되는 저장소 안 경로
+public_folder: "/images/uploads" # 사이트에서 그 이미지를 불러올 때 쓰는 경로
+
+collections:
+  - name: "works"
+    label: "작업물"
+    label_singular: "작업물"
+    folder: "content/works"
+    create: true
+    delete: true
+    slug: "{{year}}{{month}}{{day}}{{hour}}{{minute}}{{second}}-{{slug}}"
+    summary: "{{title}} — {{category}}"
+    sortable_fields: ["title", "category", "order"]
+    fields:
+      - { label: "명칭", name: "title", widget: "string" }
+      - label: "카테고리(메뉴)"
+        name: "category"
+        widget: "string"
+        hint: "예: 워터파크 / 찜질방 / 테마파크 / 빠지 / 키즈카페 / 공연 — 자유롭게 입력하면 그대로 상단 메뉴가 됩니다."
+      - label: "썸네일 이미지"
+        name: "thumbnail"
+        widget: "image"
+        hint: "1000×1000px 정사각형 권장"
+      - label: "상세페이지 이미지"
+        name: "images"
+        widget: "list"
+        hint: "위에서부터 아래 순서로 이어붙여 표시됩니다. 여러 장을 순서대로 추가하세요."
+        fields:
+          - { label: "이미지", name: "src", widget: "image" }
+      - label: "노출 순서"
+        name: "order"
+        widget: "number"
+        required: false
+        hint: "선택 사항. 숫자가 작을수록 먼저 보입니다. 비워두면 최신 등록순으로 보입니다."
