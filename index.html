@@ -30,6 +30,13 @@
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <!-- Decap CMS: 등록/수정/삭제 화면 자체를 만들어주는 오픈소스 도구 -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <!-- 한국어 번역 데이터. locale: "ko" 설정만으로는 부족하고, 이 데이터를 직접 등록해줘야 실제로 한국어로 바뀝니다 -->
+  <script src="https://unpkg.com/decap-cms-locales/dist/decap-cms-locales.js"></script>
+  <script>
+    if (window.CMS && window.DecapCmsLocales && window.DecapCmsLocales.ko) {
+      CMS.registerLocale("ko", window.DecapCmsLocales.ko);
+    }
+  </script>
 
   <script>
     if (window.netlifyIdentity) {

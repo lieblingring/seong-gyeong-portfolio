@@ -33,12 +33,10 @@ collections:
         hint: "1000×1000px 정사각형 권장"
       - label: "상세페이지 이미지"
         name: "images"
-        widget: "image"
-        multiple: true
-        media_library:
-          config:
-            multiple: true
-        hint: "파일 선택 창에서 여러 장을 한 번에 선택할 수 있습니다 (Ctrl/Shift로 다중 선택). 폴더가 다르면 선택을 여러 번 나눠서 반복하면 계속 추가됩니다. 등록된 순서대로 위에서 아래로 이어붙여 표시됩니다."
+        widget: "list"
+        hint: "위에서부터 아래 순서로 이어붙여 표시됩니다. 여러 장을 순서대로 하나씩 추가하세요. (여러 파일을 한 번에 드래그해서 아래 영역에 끌어다 놓으면 한 번에 추가될 수도 있습니다 — 되는지 한번 시도해보세요.)"
+        fields:
+          - { label: "이미지", name: "src", widget: "image" }
       - label: "노출 순서"
         name: "order"
         widget: "number"
